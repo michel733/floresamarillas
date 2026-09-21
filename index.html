@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flores Amarillas para Ti 💛</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Canvas partículas -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- Pétalos cayendo -->
+  <div id="petals-container"></div>
+
+  <!-- ===== PANTALLA DE INICIO (sobre cerrado) ===== -->
+  <div id="intro-screen">
+    <div class="envelope-wrap">
+      <div class="envelope" id="envelope">
+        <!-- Solapa superior -->
+        <div class="envelope-flap"></div>
+        <!-- Cuerpo -->
+        <div class="envelope-body">
+          <div class="envelope-heart">💛</div>
+        </div>
+      </div>
+      <p class="intro-hint">Toca para abrir tu regalo</p>
+    </div>
+  </div>
+
+  <!-- ===== CONTENIDO PRINCIPAL (oculto hasta abrir) ===== -->
+  <main id="main-content" class="hidden">
+
+    <!-- Encabezado con flores -->
+    <header class="gift-header">
+      <div class="flowers-row" id="flowers-row">
+        <!-- Lirios generados por JS -->
+      </div>
+    </header>
+
+    <!-- Fecha especial -->
+    <div class="date-badge">
+      <span class="date-icon">🌼</span>
+      <span>21 de Septiembre · Día de las Flores Amarillas</span>
+      <span class="date-icon">🌼</span>
+    </div>
+
+    <!-- Tarjeta principal del mensaje -->
+    <section class="love-card">
+      <div class="love-card-inner">
+        <div class="card-decoration top-left">
+          <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><path d="M40 70 Q20 55 15 38 Q12 22 25 18 Q33 15 40 25 Q47 15 55 18 Q68 22 65 38 Q60 55 40 70Z" fill="#FFD700" opacity="0.6"/></svg>
+        </div>
+        <div class="card-decoration top-right">
+          <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><path d="M40 70 Q20 55 15 38 Q12 22 25 18 Q33 15 40 25 Q47 15 55 18 Q68 22 65 38 Q60 55 40 70Z" fill="#FFD700" opacity="0.6"/></svg>
+        </div>
+
+        <p class="card-label">Para ti, con todo mi amor</p>
+        <h1 class="card-title">Feliz Día de las<br/><span class="highlight-gold">Flores Amarillas</span> 💛</h1>
+
+        <div class="divider">
+          <span>❦</span>
+        </div>
+
+        <p class="card-message">
+          Hoy, como cada 21 de septiembre, el mundo se llena de flores amarillas.<br/>
+          Pero ninguna será tan especial como las que te entrego a ti,<br/>
+          porque llevan todo lo que siento.<br/><br/>
+          Eres mi luz, mi alegría, mi razón de sonreír.<br/>
+          <strong>Te amo.</strong>
+        </p>
+
+        <div class="card-signature">
+          <span class="sig-line">— Con todo mi corazón 💛</span>
+        </div>
+
+        <div class="card-decoration bot-left">
+          <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><path d="M40 70 Q20 55 15 38 Q12 22 25 18 Q33 15 40 25 Q47 15 55 18 Q68 22 65 38 Q60 55 40 70Z" fill="#FFD700" opacity="0.6"/></svg>
+        </div>
+        <div class="card-decoration bot-right">
+          <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><path d="M40 70 Q20 55 15 38 Q12 22 25 18 Q33 15 40 25 Q47 15 55 18 Q68 22 65 38 Q60 55 40 70Z" fill="#FFD700" opacity="0.6"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ramo grande interactivo -->
+    <section class="bouquet-section">
+      <p class="bouquet-hint">Toca las flores 🌼</p>
+      <div class="bouquet" id="bouquet">
+        <!-- SVG del ramo generado en JS -->
+      </div>
+    </section>
+
+    <!-- Corazones flotantes -->
+    <div id="hearts-container"></div>
+
+    <!-- Botones a los mini juegos -->
+    <div class="game-link-wrap">
+      <a href="game.html" class="game-link-btn">
+        <span class="game-link-icon">🧩</span>
+        <span class="game-link-text">Puzzle de Flores</span>
+        <span class="game-link-sub">Arma la imagen 💛</span>
+      </a>
+      <a href="toast.html" class="game-link-btn game-link-btn--pink">
+        <span class="game-link-icon">🍞</span>
+        <span class="game-link-text">Atrapa las Tostadas</span>
+        <span class="game-link-sub">¡Toca antes de que caigan!</span>
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="gift-footer">
+      <p>Hecho con 💛 especialmente para ti</p>
+    </footer>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,694 @@
+/* ============================================
+   REGALO FLORES AMARILLAS — Para Yaressi 💛
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@400;600;700&family=Lato:wght@300;400&display=swap');
+
+:root {
+  --gold:       #FFD700;
+  --gold-dark:  #FFA500;
+  --gold-soft:  #FFF3B0;
+  --gold-glow:  rgba(255,215,0,0.35);
+  --bg:         #0d1409;
+  --bg-card:    #fffef5;
+  --text-dark:  #2a1a00;
+  --text-mid:   #5c3d00;
+  --green:      #2d5a3d;
+  --green-mid:  #3e7a52;
+  --shadow:     0 20px 60px rgba(0,0,0,0.5);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--bg);
+  color: var(--bg-card);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ---- Canvas ---- */
+#particleCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ============================================
+   PANTALLA INTRO — SOBRE
+   ============================================ */
+#intro-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, #1a2e10 0%, #0d1409 70%);
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#intro-screen.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.envelope-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  cursor: pointer;
+}
+
+/* El sobre */
+.envelope {
+  position: relative;
+  width: 280px;
+  height: 200px;
+  filter: drop-shadow(0 10px 40px rgba(255,215,0,0.4));
+  transition: transform 0.3s;
+}
+.envelope-wrap:hover .envelope { transform: scale(1.04) translateY(-6px); }
+
+/* Cuerpo del sobre */
+.envelope-body {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #fff9d6, #ffeea0);
+  border-radius: 6px 6px 12px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255,180,0,0.5);
+  box-shadow: inset 0 -4px 20px rgba(255,165,0,0.15);
+}
+
+/* Líneas decorativas del sobre */
+.envelope-body::before,
+.envelope-body::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to top right, #ffe57a, transparent);
+  clip-path: polygon(0 100%, 100% 100%, 0 0);
+}
+.envelope-body::after {
+  right: 0;
+  left: auto;
+  clip-path: polygon(100% 100%, 0 100%, 100% 0);
+  background: linear-gradient(to top left, #ffe57a, transparent);
+}
+
+.envelope-heart {
+  font-size: 3rem;
+  z-index: 2;
+  animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  30%       { transform: scale(1.2); }
+  60%       { transform: scale(0.95); }
+}
+
+/* Solapa del sobre */
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  z-index: 3;
+  background: linear-gradient(to bottom, #ffd84d, #ffe680);
+  border-radius: 6px 6px 0 0;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  border: 2px solid rgba(255,180,0,0.4);
+  transform-origin: top center;
+  transition: transform 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.envelope-wrap:hover .envelope-flap {
+  transform: rotateX(-160deg);
+}
+
+.intro-hint {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.4rem;
+  color: var(--gold);
+  opacity: 0.85;
+  animation: hintPulse 2s ease-in-out infinite;
+  text-shadow: 0 0 20px var(--gold-glow);
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.6; transform: translateY(0); }
+  50%       { opacity: 1;   transform: translateY(-4px); }
+}
+
+/* ============================================
+   CONTENIDO PRINCIPAL
+   ============================================ */
+#main-content {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+#main-content.hidden { display: none; }
+
+#main-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   HEADER — FLORES EN FILA
+   ============================================ */
+.gift-header {
+  padding: 3rem 1rem 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse at center top, #1a3520 0%, transparent 70%);
+}
+
+.flowers-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.lily-svg {
+  cursor: pointer;
+  transition: transform 0.3s;
+  filter: drop-shadow(0 0 12px rgba(255,215,0,0.5));
+  animation: sway 4s ease-in-out infinite;
+}
+
+.lily-svg:nth-child(2) { animation-delay: 0.4s; animation-duration: 3.6s; }
+.lily-svg:nth-child(3) { animation-delay: 0.8s; animation-duration: 4.4s; }
+.lily-svg:nth-child(4) { animation-delay: 1.2s; animation-duration: 3.8s; }
+.lily-svg:nth-child(5) { animation-delay: 0.6s; animation-duration: 4.2s; }
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-4deg); }
+  50%       { transform: rotate(4deg); }
+}
+
+.lily-svg:hover {
+  transform: scale(1.15) rotate(0deg) !important;
+  filter: drop-shadow(0 0 28px rgba(255,215,0,0.9));
+  animation-play-state: paused;
+}
+
+/* ============================================
+   BADGE DE FECHA
+   ============================================ */
+.date-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1.5rem auto;
+  padding: 0.6rem 2rem;
+  max-width: fit-content;
+  background: rgba(255,215,0,0.1);
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 50px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.date-icon { font-size: 1.1rem; }
+
+/* ============================================
+   TARJETA DE AMOR
+   ============================================ */
+.love-card {
+  max-width: 680px;
+  margin: 2rem auto 3rem;
+  padding: 0 1.5rem;
+}
+
+.love-card-inner {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: 24px;
+  padding: 4rem 3.5rem;
+  box-shadow: var(--shadow), 0 0 0 1px rgba(255,215,0,0.2), 0 0 60px rgba(255,215,0,0.1);
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Decoraciones esquinas */
+.card-decoration {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  opacity: 0.5;
+}
+.card-decoration.top-left  { top: -10px;  left: -10px;  transform: rotate(-30deg); }
+.card-decoration.top-right { top: -10px;  right: -10px; transform: rotate(30deg) scaleX(-1); }
+.card-decoration.bot-left  { bottom: -10px; left: -10px; transform: rotate(150deg) scaleX(-1); }
+.card-decoration.bot-right { bottom: -10px; right: -10px; transform: rotate(150deg); }
+
+/* Línea dorada superior */
+.love-card-inner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--gold-dark), var(--gold), transparent);
+  border-radius: 0 0 4px 4px;
+}
+
+.card-label {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.1rem;
+  color: var(--gold-dark);
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.3s forwards;
+}
+
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  color: var(--text-dark);
+  line-height: 1.25;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.5s forwards;
+}
+
+.highlight-gold {
+  color: var(--gold-dark);
+  font-style: italic;
+}
+
+.divider {
+  color: var(--gold-dark);
+  font-size: 1.8rem;
+  margin: 1.5rem 0;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.7s forwards;
+}
+
+.card-message {
+  font-family: 'Lato', sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  color: var(--text-mid);
+  line-height: 2;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.9s forwards;
+}
+
+.card-message strong {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3em;
+  color: var(--text-dark);
+}
+
+.card-signature {
+  opacity: 0;
+  animation: fadeUp 0.8s 1.1s forwards;
+}
+
+.sig-line {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  color: var(--gold-dark);
+}
+
+/* Nombre de Yaressi al pie de la carta */
+.love-card-inner::after {
+  content: '— Para Yaressi 💛 —';
+  display: block;
+  margin-top: 2rem;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2rem;
+  color: var(--gold-dark);
+  opacity: 0.8;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   RAMO INTERACTIVO
+   ============================================ */
+.bouquet-section {
+  text-align: center;
+  padding: 2rem 1rem 4rem;
+}
+
+.bouquet-hint {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.3rem;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+  animation: hintPulse 2.5s ease-in-out infinite;
+}
+
+.bouquet {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  filter: drop-shadow(0 10px 40px rgba(255,215,0,0.4));
+  transition: filter 0.3s;
+}
+
+.bouquet:hover {
+  filter: drop-shadow(0 10px 60px rgba(255,215,0,0.7));
+}
+
+/* ============================================
+   CORAZONES FLOTANTES
+   ============================================ */
+#hearts-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.floating-heart {
+  position: absolute;
+  bottom: -60px;
+  font-size: 1.5rem;
+  opacity: 0;
+  animation: floatHeart linear forwards;
+}
+
+@keyframes floatHeart {
+  0%   { bottom: -60px; opacity: 0; transform: translateX(0) scale(0.5) rotate(-10deg); }
+  15%  { opacity: 0.9; }
+  85%  { opacity: 0.6; }
+  100% { bottom: 110vh; opacity: 0; transform: translateX(40px) scale(1) rotate(10deg); }
+}
+
+/* ============================================
+   PÉTALOS
+   ============================================ */
+#petals-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.falling-petal {
+  position: absolute;
+  top: -60px;
+  opacity: 0;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0%   { top: -60px; opacity: 0;    transform: rotate(0deg) translateX(0); }
+  10%  { opacity: 0.8; }
+  90%  { opacity: 0.5; }
+  100% { top: 110vh;  opacity: 0;   transform: rotate(540deg) translateX(60px); }
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.gift-footer {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2rem;
+  color: var(--gold);
+  opacity: 0.7;
+  border-top: 1px solid rgba(255,215,0,0.1);
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+
+/* ============================================
+   BOTÓN AL MINI JUEGO
+   ============================================ */
+.game-link-wrap {
+  text-align: center;
+  padding: 1rem 1rem 2.5rem;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+}
+
+.game-link-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 1.2rem 2.5rem;
+  background: #0d1409;
+  border: 3px solid var(--gold);
+  box-shadow: 6px 6px 0 #8a6000, 0 0 30px rgba(255,215,0,0.2);
+  color: var(--gold);
+  text-decoration: none;
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(0.55rem, 2vw, 0.75rem);
+  letter-spacing: 1px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+
+.game-link-btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 #8a6000, 0 0 40px rgba(255,215,0,0.35);
+}
+
+.game-link-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0 #8a6000;
+}
+
+.game-link-icon { font-size: 2rem; }
+
+.game-link-text {
+  color: var(--gold);
+  font-size: clamp(0.55rem, 2vw, 0.75rem);
+}
+
+.game-link-sub {
+  color: #ff6b9d;
+  font-size: clamp(0.42rem, 1.5vw, 0.58rem);
+}
+
+.game-link-btn--pink {
+  border-color: #ff6b9d;
+  box-shadow: 6px 6px 0 #8a003a, 0 0 30px rgba(255,107,157,0.2);
+}
+
+.game-link-btn--pink .game-link-text { color: #ff6b9d; }
+.game-link-btn--pink .game-link-sub  { color: var(--gold); }
+
+.game-link-btn--pink:hover {
+  box-shadow: 9px 9px 0 #8a003a, 0 0 40px rgba(255,107,157,0.35);
+}
+
+.game-link-btn--pink:active {
+  box-shadow: 3px 3px 0 #8a003a;
+}
+
+/* ============================================
+   RESPONSIVE — Móvil primero
+   ============================================ */
+
+/* --- Pantallas medianas (tablets) --- */
+@media (max-width: 768px) {
+
+  /* Badge de fecha: texto más pequeño y sin desbordarse */
+  .date-badge {
+    font-size: 0.75rem;
+    padding: 0.5rem 1.2rem;
+    gap: 0.5rem;
+    letter-spacing: 0;
+    text-align: center;
+    margin: 1rem 1rem;
+  }
+
+  /* Tarjeta de amor */
+  .love-card {
+    margin: 1.5rem auto 2rem;
+    padding: 0 1rem;
+  }
+
+  .love-card-inner {
+    padding: 3rem 2rem;
+    border-radius: 18px;
+  }
+
+  /* Decoraciones de esquina más pequeñas */
+  .card-decoration { width: 65px; height: 65px; }
+
+  .card-title { font-size: clamp(1.5rem, 6vw, 2.2rem); }
+
+  .card-message {
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+
+  .sig-line { font-size: 1.3rem; }
+
+  /* Ramo */
+  .bouquet svg {
+    width: 260px !important;
+    height: 325px !important;
+  }
+
+  /* Flores en fila: reducir tamaño */
+  .flowers-row { gap: 0.8rem; padding: 0.5rem; }
+}
+
+/* --- Pantallas pequeñas (móviles) --- */
+@media (max-width: 480px) {
+
+  /* Sobre de intro */
+  .envelope {
+    width: 220px;
+    height: 158px;
+  }
+
+  .envelope-heart { font-size: 2.4rem; }
+
+  .intro-hint { font-size: 1.2rem; }
+
+  /* Header flores: mostrar solo 3 flores, esconder las extremas */
+  .gift-header { padding: 2rem 0.5rem 0.5rem; }
+
+  .flowers-row {
+    gap: 0.6rem;
+    padding: 0.5rem 0;
+  }
+
+  /* Reducir tamaño de lirios en fila */
+  .lily-svg {
+    width: 44px !important;
+    height: 80px !important;
+  }
+
+  /* Badge fecha: una sola línea legible */
+  .date-badge {
+    font-size: 0.68rem;
+    padding: 0.45rem 0.9rem;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    line-height: 1.5;
+  }
+
+  .date-icon { font-size: 0.9rem; }
+
+  /* Tarjeta */
+  .love-card { padding: 0 0.75rem; }
+
+  .love-card-inner {
+    padding: 2.5rem 1.2rem 2rem;
+    border-radius: 16px;
+  }
+
+  .card-decoration { width: 50px; height: 50px; }
+
+  .card-label { font-size: 1rem; }
+
+  .card-title {
+    font-size: clamp(1.4rem, 7vw, 1.9rem);
+    line-height: 1.3;
+  }
+
+  .divider { font-size: 1.4rem; margin: 1rem 0; }
+
+  .card-message {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  /* Nombre al pie de la carta */
+  .love-card-inner::after {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .sig-line { font-size: 1.15rem; }
+
+  /* Sección ramo */
+  .bouquet-section { padding: 1.5rem 0.5rem 3rem; }
+
+  .bouquet-hint { font-size: 1.1rem; margin-bottom: 1rem; }
+
+  .bouquet svg {
+    width: 90vw !important;
+    height: auto !important;
+    max-width: 300px;
+  }
+
+  /* Footer */
+  .gift-footer {
+    font-size: 1rem;
+    padding: 2rem 1rem;
+  }
+}
+
+/* --- Pantallas muy pequeñas (≤ 360px) --- */
+@media (max-width: 360px) {
+
+  .envelope { width: 190px; height: 136px; }
+  .envelope-heart { font-size: 2rem; }
+
+  .love-card-inner { padding: 2rem 1rem 1.5rem; }
+
+  .card-title { font-size: 1.3rem; }
+
+  .card-message { font-size: 0.88rem; }
+
+  .bouquet svg {
+    width: 95vw !important;
+    max-width: 260px;
+  }
+}
+
+/* --- Touch devices: quitar efectos hover que no aplican --- */
+@media (hover: none) {
+  .envelope-wrap:hover .envelope      { transform: none; }
+  .envelope-wrap:hover .envelope-flap { transform: none; }
+  .lily-svg:hover                     { transform: none !important; animation-play-state: running; }
+  .bouquet:hover                      { filter: drop-shadow(0 10px 40px rgba(255,215,0,0.4)); }
+
+  /* En touch, la solapa se abre con el tap (gestionado por JS) */
+  .envelope-wrap:active .envelope-flap {
+    transform: rotateX(-160deg);
+  }
+}

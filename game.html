@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Puzzle de Flores 💛 — Para Yaressi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="game.css"/>
+</head>
+<body>
+
+  <h1>🌼 Puzzle de Flores</h1>
+  <p class="subtitle">Para Yaressi 💛</p>
+
+  <div class="controls">
+    <button id="start-button">Nueva Imagen</button>
+
+    <label>
+      Tamaño:
+      <input type="number" id="grid-size" value="4" min="2" max="8"/>
+    </label>
+
+    <label class="debug-label">
+      Números:
+      <input type="checkbox" id="debug-toggle"/>
+    </label>
+  </div>
+
+  <div id="puzzle-container"></div>
+
+  <div class="move-counter">
+    Movimientos: <span id="move-count">0</span>
+  </div>
+
+  <a href="index.html" class="back-link">← Volver al regalo 💛</a>
+
+  <script src="game.js"></script>
+</body>
+</html>

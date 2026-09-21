@@ -199,6 +199,82 @@ canvas {
   border-color: #FFD700;
 }
 
+/* ---- Controles táctiles ---- */
+.touch-controls {
+  display: none; /* solo visible en táctil */
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px 4px;
+  gap: 10px;
+}
+
+.touch-dpad {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.touch-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.touch-btn {
+  width: 56px;
+  height: 56px;
+  font-size: 1.3rem;
+  border-radius: 10px;
+  border: 2px solid rgba(255,215,0,0.4);
+  background: rgba(255,215,0,0.12);
+  color: #FFD700;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition: background 0.1s, transform 0.1s;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.touch-btn:active,
+.touch-btn.pressed {
+  background: rgba(255,215,0,0.35);
+  transform: scale(0.93);
+}
+
+.dpad-jump {
+  background: rgba(100,200,100,0.18);
+  border-color: rgba(100,255,100,0.5);
+  color: #88ff88;
+}
+
+.action-break {
+  width: 62px;
+  height: 62px;
+  font-size: 1.5rem;
+  background: rgba(200,80,80,0.18);
+  border-color: rgba(255,100,100,0.5);
+}
+
+.action-place {
+  width: 62px;
+  height: 62px;
+  font-size: 1.5rem;
+  background: rgba(80,140,200,0.18);
+  border-color: rgba(100,180,255,0.5);
+}
+
+/* Mostrar controles en dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+  .touch-controls {
+    display: flex;
+  }
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
   .instructions { font-size: 0.55em; padding: 8px 12px; }

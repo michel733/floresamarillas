@@ -545,6 +545,99 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
+/* ══════════════════════════════════════════
+   CONTROLES TÁCTILES (celular)
+══════════════════════════════════════════ */
+function setupTouchControls() {
+  const btnLeft  = document.getElementById('btnLeft');
+  const btnRight = document.getElementById('btnRight');
+  const btnJump  = document.getElementById('btnJump');
+  const btnBreak = document.getElementById('btnBreak');
+  const btnPlace = document.getElementById('btnPlace');
+
+  if (!btnLeft) return; // por si no existe el HTML
+
+  // Función genérica para mantener tecla presionada mientras se toca
+  function holdKey(btn, code) {
+    btn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      keysPressed[code] = true;
+      btn.classList.add('pressed');
+    }, { passive: false });
+
+    btn.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      keysPressed[code] = false;
+      btn.classList.remove('pressed');
+    }, { passive: false });
+
+    btn.addEventListener('touchcancel', () => {
+      keysPressed[code] = false;
+      btn.classList.remove('pressed');
+    });
+  }
+
+  holdKey(btnLeft,  'KeyA');
+  holdKey(btnRight, 'KeyD');
+  holdKey(btnJump,  'Space');
+
+  // Botón romper: actúa sobre el bloque más cercano al jugador
+  btnBreak.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    btnBreak.classList.add('pressed');
+    const cx = Math.floor((player.x + PLAYER_SIZE / 2) / TILE_SIZE);
+    const cy = Math.floor((player.y + PLAYER_SIZE / 2) / TILE_SIZE);
+    // Busca el bloque sólido más cercano alrededor del jugador
+    const offsets = [[0,1],[1,0],[-1,0],[0,-1],[1,1],[-1,1],[0,2]];
+    for (const [dx, dy] of offsets) {
+      const tx = cx + dx;
+      const ty = cy + dy;
+      if (tx >= 0 && tx < WORLD_WIDTH_TILES && ty >= 0 && ty < WORLD_HEIGHT_TILES) {
+        const bid = world[ty][tx];
+        if (bid !== 0 && BLOCK_TYPES[bid] && BLOCK_TYPES[bid].breakable) {
+          breakBlock(tx, ty);
+          break;
+        }
+      }
+    }
+  }, { passive: false });
+
+  btnBreak.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    btnBreak.classList.remove('pressed');
+  }, { passive: false });
+
+  // Botón colocar: coloca el bloque seleccionado encima o al lado del jugador
+  btnPlace.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    btnPlace.classList.add('pressed');
+    const cx = Math.floor((player.x + PLAYER_SIZE / 2) / TILE_SIZE);
+    const cy = Math.floor((player.y + PLAYER_SIZE / 2) / TILE_SIZE);
+    // Intenta colocar en el espacio vacío más cercano alrededor
+    const offsets = [[0,-1],[1,0],[-1,0],[0,1],[1,-1],[-1,-1]];
+    for (const [dx, dy] of offsets) {
+      const tx = cx + dx;
+      const ty = cy + dy;
+      if (tx >= 0 && tx < WORLD_WIDTH_TILES && ty >= 0 && ty < WORLD_HEIGHT_TILES) {
+        if (world[ty][tx] === 0) {
+          const playerRect = { x: player.x, y: player.y, width: PLAYER_SIZE, height: PLAYER_SIZE };
+          const tileRect   = { x: tx * TILE_SIZE, y: ty * TILE_SIZE, width: TILE_SIZE, height: TILE_SIZE };
+          if (!checkCollision(playerRect, tileRect) && BLOCK_TYPES[selectedBlockType].placeable) {
+            placeBlock(tx, ty);
+            break;
+          }
+        }
+      }
+    }
+  }, { passive: false });
+
+  btnPlace.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    btnPlace.classList.remove('pressed');
+  }, { passive: false });
+}
+
 window.onload = function() {
   initGame();
+  setupTouchControls();
 };

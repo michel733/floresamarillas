@@ -1,0 +1,214 @@
+/* ============================================
+   FLORÍCRAFT — Para Yaressi 💛
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: radial-gradient(ellipse at center, #1a3520 0%, #0d1a0f 100%);
+  font-family: 'Press Start 2P', cursive;
+  color: #eee;
+  text-align: center;
+  padding: 10px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Contenedor principal ---- */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 4px solid #FFD700;
+  box-shadow: 0 0 30px rgba(255,215,0,0.25), 0 0 60px rgba(0,0,0,0.6);
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #0d1a0f;
+  padding: 10px;
+  position: relative;
+}
+
+/* Overlay "Play now" */
+.game-container aside {
+  position: absolute;
+  background: rgba(0,0,0,0.7);
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  z-index: 10;
+  border-radius: 8px;
+}
+
+.game-container aside button {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #0d1a0f;
+  padding: 1em 2em;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #8a6000;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.game-container aside button:hover {
+  transform: translate(-2px,-2px);
+  box-shadow: 6px 6px 0 #8a6000;
+}
+
+/* ---- Canvas ---- */
+canvas {
+  background-color: #87CEEB;
+  display: block;
+  border: 2px solid rgba(255,215,0,0.3);
+  border-radius: 6px;
+  max-width: 100%;
+}
+
+/* ---- Inventario ---- */
+.inventory-panel {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  background-color: #0a1209;
+  padding: 8px;
+  border-radius: 8px;
+  border: 2px solid rgba(255,215,0,0.2);
+  gap: 4px;
+}
+
+.inventory-slot {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #444;
+  background-color: #1a3520;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: transform 0.1s, border-color 0.1s, box-shadow 0.1s;
+}
+
+.inventory-slot.selected {
+  border-color: #FFD700;
+  transform: scale(1.12);
+  box-shadow: 0 0 12px rgba(255,215,0,0.55);
+}
+
+.inventory-slot:hover {
+  transform: scale(1.06);
+  border-color: rgba(255,215,0,0.5);
+}
+
+/* ---- Panel de control ---- */
+.control-panel {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background-color: #0a1209;
+  padding: 8px 15px;
+  border-radius: 8px;
+  border: 2px solid rgba(255,215,0,0.15);
+}
+
+.control-panel button {
+  background: linear-gradient(135deg, #2a5c38, #1a3520);
+  color: #FFD700;
+  border: 2px solid rgba(255,215,0,0.3);
+  padding: 8px 14px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.control-panel button:hover {
+  background: linear-gradient(135deg, #3a7a4a, #2a5c38);
+  border-color: rgba(255,215,0,0.6);
+}
+
+.control-panel button.active {
+  background: linear-gradient(135deg, #7a1a1a, #4a0a0a);
+  border-color: #ff4466;
+  color: #ff6688;
+}
+
+/* ---- Instrucciones ---- */
+.instructions {
+  font-size: 0.62em;
+  line-height: 1.7;
+  background-color: #0a1209;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: 2px solid rgba(255,215,0,0.15);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  max-width: 640px;
+  text-align: left;
+}
+
+.instructions h2 {
+  font-size: 0.95em;
+  margin-bottom: 0.8rem;
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255,215,0,0.4);
+}
+
+.instructions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.instructions li { color: #aaa; }
+.instructions strong { color: #FFD700; }
+
+/* ---- Enlace volver ---- */
+.back-link {
+  font-size: 0.6rem;
+  color: #666;
+  text-decoration: none;
+  border-bottom: 2px solid #333;
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.back-link:hover {
+  color: #FFD700;
+  border-color: #FFD700;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .instructions { font-size: 0.55em; padding: 8px 12px; }
+  .inventory-slot { width: 34px; height: 34px; }
+  .control-panel { flex-direction: column; gap: 5px; padding: 6px 10px; }
+}
+
+@media (max-width: 480px) {
+  .game-container { padding: 5px; }
+  canvas { width: 100%; height: auto; }
+  .instructions { font-size: 0.5em; padding: 5px 8px; }
+  .inventory-slot { width: 28px; height: 28px; }
+}

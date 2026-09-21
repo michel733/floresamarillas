@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FloriCraft 🌼 — Para Yaressi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="craft.css"/>
+</head>
+<body>
+
+  <div class="game-container">
+
+    <aside onclick="this.remove()"><button>¡ Jugar !</button></aside>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <div class="inventory-panel" id="inventoryPanel"></div>
+
+    <div class="control-panel">
+      <button id="creatorModeToggle">Modo Creador (OFF)</button>
+    </div>
+
+  </div>
+
+  <div class="instructions">
+    <h2>🌼 FloriCraft — Cómo jugar</h2>
+    <ul>
+      <li><strong>Mover:</strong> <strong>A</strong> (izq), <strong>D</strong> (der), <strong>Espacio / W</strong> (saltar)</li>
+      <li><strong>Romper bloque:</strong> <strong>Q</strong> o <strong>Doble clic</strong> sobre un bloque</li>
+      <li><strong>Colocar bloque:</strong> <strong>E</strong> o <strong>Clic izquierdo</strong> en espacio vacío</li>
+      <li><strong>Seleccionar:</strong> Teclas <strong>1–9</strong> o clic en el inventario</li>
+      <li><strong>Scroll:</strong> Rueda del ratón para cambiar bloque</li>
+      <li><strong>Modo Creador:</strong> Coloca o elimina bloques en cualquier lugar</li>
+    </ul>
+  </div>
+
+  <a href="index.html" class="back-link">← Volver al regalo 💛</a>
+
+  <script src="craft.js"></script>
+</body>
+</html>

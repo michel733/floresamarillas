@@ -519,8 +519,20 @@ body {
   box-shadow: 9px 9px 0 #8a003a, 0 0 40px rgba(255,107,157,0.35);
 }
 
-.game-link-btn--pink:active {
-  box-shadow: 3px 3px 0 #8a003a;
+.game-link-btn--green {
+  border-color: #4caf50;
+  box-shadow: 6px 6px 0 #1a5c1e, 0 0 30px rgba(76,175,80,0.2);
+}
+
+.game-link-btn--green .game-link-text { color: #7dde8a; }
+.game-link-btn--green .game-link-sub  { color: #FFD700; }
+
+.game-link-btn--green:hover {
+  box-shadow: 9px 9px 0 #1a5c1e, 0 0 40px rgba(76,175,80,0.35);
+}
+
+.game-link-btn--green:active {
+  box-shadow: 3px 3px 0 #1a5c1e;
 }
 
 /* ============================================
